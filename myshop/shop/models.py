@@ -1,27 +1,28 @@
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
 
     class Meta:
         ordering = ['name']
-        indexes = [models.Index(fields=['name']),]
+        indexes = [models.Index(fields=['name']), ]
         verbose_name = 'category'
         verbose_name_plural = 'categories'
 
     def __str__(self):
         return self.name
 
+
 class Product(models.Model):
     category = models.ForeignKey(
         Category,
         related_name='products',
-        on_delete=models.CASCADE
-    )
+        on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
-    image = models.ImageField(upload_to='',     #   Указать адресс папки с продуктами.
+    image = models.ImageField(upload_to='',  # Указать адресс папки с продуктами.
                               blank=True)
     description = models.TextField(blank=True)
     price = models.DecimalField(max_digits=10,
@@ -31,7 +32,7 @@ class Product(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['Name']
+        ordering = ['name']
         indexes = [
             models.Index(fields=['id', 'slug']),
             models.Index(fields=['name']),
@@ -40,5 +41,3 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
-
-# Create your models here.
