@@ -3,15 +3,11 @@ from django.conf import settings
 from shop.models import Product
 
 class Cart:
-    def __init__(self, request):
-        """
-        Инициализировать корзину
-        """
-        self.session = request.session
-        cart = self.session.get(settings.CART_SESSION_ID)
+    def __init__(self, request):    # метод класса, который инициализирует созданный объект.
+        self.session = request.session  # Текущий сеанс сохраняется посредством этой инструкции
+        cart = self.session.get(settings.CART_SESSION_ID)   # запрос корзины из текущего сеанса
         if not cart:
-            #   сохранить пустую корзину в сеансе
-            cart = self.session[settings.CART_SESSION_ID] = {}
+            cart = self.session[settings.CART_SESSION_ID] = {}  # сохранить пустую корзину в сеансе если в сеансе ее нет
         self.cart = cart
 
     def add(self, product, quantity=1, override_quantity=False):
@@ -29,23 +25,18 @@ class Cart:
         self.save()
 
     def save(self):
-        #   Пометить сеанс как 'Измененный'
-        #   Чтобы обеспечить его сохранение
-        self.session.modified = True
+        self.session.modified = True    # сохранение измененного сеанса
 
     def remove(self, product):
-        """
-
-        """
         product_id = str(product.id)
         if product_id in self.cart:
-            del self.cart[product_id]
+            del self.cart[product_id]   # удаление из словаря строки
             self.save()
 
     def __iter__(self):
-        product_ids = self.cart.keys()
-        products = Product.objects.filter(id__in=product_ids)
-        cart = self.cart.copy()
+        product_ids = self.cart.keys()  # получение продуктов из корзины методом по ключу
+        products = Product.objects.filter(id__in=product_ids)   # получить продукт и добавить в корзину
+        cart = self.cart.copy()     # текущая корзина копируется в эту переменную
         for product in products:
             cart[str(product.id)]['product'] = product
         for item in cart.values():
