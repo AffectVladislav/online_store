@@ -16,10 +16,7 @@ def order_create(request):
                                         product=item['product'],
                                         price=item['price'],
                                         quantity=item['quantity'])
-            # clear the cart
             cart.clear()
-            # launch asynchronous task
-            order_created.delay(order.id)
             return render(request,
                           'orders/order/created.html',
                           {'order': order})
