@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -137,4 +138,9 @@ EMAIL_USE_SSL = False
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CART_SESSION_ID = 'cart'
+
+# Настроечные параметры Stripe
+STRIPE_PUBLISHABLE_KEY = '' # Публикуемый ключ
+STRIPE_SECRET_KEY = '' # Секретный ключ
+STRIPE_API_VERSION = '2022-08-01'
 
