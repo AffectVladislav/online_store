@@ -130,8 +130,9 @@ MEDIA_ROOT = BASE_DIR / 'media'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'vlad.shagay01@gmail.com'
-EMAIL_HOST_PASSWORD = 'jtmf yqvo disw xdoi'
+EMAIL_HOST_PASSWORD = 'jtmfyqvodiswxdoi'
 EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
